@@ -1,14 +1,10 @@
 import "./App.css";
-import Header from "./component/Header";
-import Hello from "./component/Hello";
-import Footer from "./component/Footer";
+import OneYearDateArray from "./component/OneYearArray.jsx";
 
 function App() {
   return (
     <>
-      <Header />
-      <Hello />
-      <Footer />
+      <OneYearDateArray />
     </>
   );
 }
