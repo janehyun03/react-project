@@ -1,8 +1,6 @@
 const OneYearDateArray = () => {
   const startDate = new Date("2023-01-01");
-  console.log("startDate:", startDate);
   const endDate = new Date("2023-12-31");
-  console.log("endDate:", endDate);
   const datesArray = [];
   const currentDate = new Date(startDate);
 
@@ -37,21 +35,27 @@ const OneYearDateArray = () => {
       <table>
         {datesChunks.map((chunk, index) => (
           <tr key={index}>
-            {chunk.map((date, innerIndex) => (
-              <td
-                className={
-                  holidays.find((element) => element == date.toDateString())
-                    ? "holiday"
-                    : "" || date.getDay() == 6 || date.getDay() == 0
-                    ? "weekend"
-                    : ""
-                }
-                key={innerIndex}
-                style={{ border: "1px solid black" }}
-              >
-                {date.getDate()}
-              </td>
-            ))}
+            {chunk.map((date, innerIndex) => {
+              const isHolisday = holidays.find(
+                (element) => element == date.toDateString()
+              )
+                ? "holiday"
+                : "";
+              const getDate =
+                date.getDay() == 6 || date.getDay() == 0 ? "weekend" : "";
+
+              return (
+                <>
+                  <td
+                    className={isHolisday || getDate}
+                    key={innerIndex}
+                    style={{ border: "1px solid black" }}
+                  >
+                    {date.getDate()}
+                  </td>
+                </>
+              );
+            })}
           </tr>
         ))}
       </table>
