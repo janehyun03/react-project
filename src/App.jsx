@@ -1,12 +1,16 @@
-import "./App.css";
-import OneYearDateArray from "./component/OneYearArray.jsx";
+import { useState } from "react";
 
-function App() {
+import "./App.css";
+import ThreeSquares from "./component/ThreeSquares.jsx";
+import Calculator from "./component/Calculator.jsx";
+import Carousel from "./component/Carousel.jsx";
+
+export default function App() {
   return (
     <>
-      <OneYearDateArray />
+      <ThreeSquares />
+      {/* <Calculator /> */}
+      {/* <Carousel /> */}
     </>
   );
 }
-
-export default App;
