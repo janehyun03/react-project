@@ -1,76 +1,103 @@
 import { useState } from "react";
 
 export default function Calculator() {
-  const [score, setScore] = useState(0);
+  const initialArr = [
+    {
+      participation: 0,
+      coursework: [],
+      midterm: 0,
+      finalPro: 0,
+      finalExam: 0,
+    },
+  ];
+  const [arr, setArr] = useState(initialArr);
   const [category, setCategory] = useState("participation");
-  const [arr, setArr] = useState([{ category: "", score: 0 }]);
+  const [score, setScore] = useState(0);
+  const [overall, setOverall] = useState(0);
+  const [average, setAverage] = useState(0);
 
   function saveData() {
-    // 카테고리저장
-    // setCategory();
-    // console.log(category);
-    //인풋벨류저장
-    // setWeight();
-    // console.log(weight);
+    if (category == "participation" && score <= 100 && score >= 0) {
+      arr[0].participation = score;
+      Average();
+    } else if (category == "coursework" && score <= 100 && score >= 0) {
+      arr[0].coursework.push(Number(score));
+      let sum = 0;
+      arr[0].coursework.forEach((e) => {
+        sum += Number(e);
+      });
+      setAverage(sum / arr[0].coursework.length);
+      Average();
+    } else if (category == "midterm" && score <= 100 && score >= 0) {
+      arr[0].midterm = score;
+      Average();
+    } else if (category == "finalPro" && score <= 100 && score >= 0) {
+      arr[0].finalPro = score;
+      Average();
+    } else if (category == "finalExam" && score <= 100 && score >= 0) {
+      arr[0].finalExam = score;
+      Average();
+    }
+    console.log("arr", arr);
   }
-  function Average() {}
+
+  function Average() {
+    setOverall(
+      arr[0].participation * 0.1 +
+        average * 0.2 +
+        arr[0].midterm * 0.15 +
+        arr[0].finalPro * 0.3 +
+        arr[0].finalExam * 0.25
+    );
+    console.log("Average", average);
+  }
 
   return (
     <>
-      <select
-        name="category"
-        onChange={(e) => {
-          console.log(category);
-          setCategory(e.target.value);
-        }}
-      >
-        <option value="participation">Participation</option>
-        <option value="coursework">Coursework</option>
-        <option value="midterm">Midterm</option>
-        <option value="finalPro">Final Project</option>
-        <option value="finalExam">Final Exam</option>
-      </select>
+      <div className="container">
+        <select
+          name="category"
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}
+        >
+          <option value="participation">Participation</option>
+          <option value="coursework">Coursework</option>
+          <option value="midterm">Midterm</option>
+          <option value="finalPro">Final Project</option>
+          <option value="finalExam">Final Exam</option>
+        </select>
+        <br />
+        <input
+          type="text"
+          placeholder="0 - 100"
+          onChange={(e) => {
+            setScore(e.target.value);
+          }}
+        ></input>
+      </div>
+
       <br />
-      <input
-        type="text"
-        onChange={(e) => {
-          console.log(score);
-          setScore(e.target.value);
-        }}
-      ></input>
-      <br />
-
-      <button
-        onClick={(e) => {
-          // 여기 버튼을 누르면 항목을 저장 후, 계산
-          // 일단 셀렉트 벨류, 인풋의 값 입력
-          // map을 돌려야 하나?? 버튼 누를 때마다 average에 값을 추가
-
-          console.log(category, score);
-          // setArr(
-          //   // arr.map((a) => {
-          //   //   console.log(a);
-          //   //   arr = [{ category: category, score: score }];
-          //   // })
-          //   [...arr, { category: category, score: score }]
-          // );
-
-          {
-            if (
-              arr.filter((e) => {
-                console.log(e);
-                e == category;
-                console.log(e);
-                // return setArr([...arr, { category: category, score: score }]);
-              })
-            );
-          }
-
-          console.log(arr);
-        }}
-      >
-        Calculate average
-      </button>
+      <div className="container">
+        <button onClick={() => saveData()}>Calculate average</button>
+      </div>
+      <div className="cal">
+        <p>Participation : {arr[0].participation}</p>
+        <p style={{ color: "gray" }}>
+          Coursework List: {arr[0].coursework.join(",")}
+        </p>
+        <p>
+          Coursework :{" "}
+          {arr[0].coursework.length !== 1 ? average : arr[0].coursework[0]}
+        </p>
+        <p>Midterm Project : {arr[0].midterm}</p>
+        <p>Final Project : {arr[0].finalPro}</p>
+        <p>Final Exam : {arr[0].finalExam}</p>
+        <div className="square">
+          <p style={{ color: "red" }}>overall average:</p>
+          <p style={{ color: "red" }}>{overall}</p>
+        </div>
+      </div>
     </>
   );
 }

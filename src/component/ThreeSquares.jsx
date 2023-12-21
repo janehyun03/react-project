@@ -49,6 +49,7 @@ export default function ThreeSquares() {
                 setSquareArr(
                   produce((draft) => {
                     const selectBtn = draft.find((a) => a.id == e.id);
+                    console.log("selectBtn", selectBtn);
                     if (selectBtn.islocked == true) selectBtn.islocked = false;
                     else if (selectBtn.islocked == false)
                       selectBtn.islocked = true;

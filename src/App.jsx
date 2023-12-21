@@ -8,9 +8,11 @@ import Carousel from "./component/Carousel.jsx";
 export default function App() {
   return (
     <>
+      <Calculator />
+      <br />
+      <Carousel />
+      <br />
       <ThreeSquares />
-      {/* <Calculator /> */}
-      {/* <Carousel /> */}
     </>
   );
 }
